@@ -39,9 +39,9 @@ steps:
     platform: '$(buildPlatform)'
     configuration: '$(buildConfiguration)'
 
+  displayName: 'Run unit tests'
 - task: DotNetCoreCLI@2
   inputs:
-    displayName: 'Run Unit Tests'
     command: 'test'
     projects: '**/KudosShopUnitTest.csproj'
     
