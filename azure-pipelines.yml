@@ -46,8 +46,6 @@ steps:
     projects: '**/KudosShopUnitTest.csproj'
     
 - task: DotNetCoreCLI@2
-  steps:
-  displayName: 'Run unit tests'
   inputs:
     command: publish
     publishWebProjects: True
