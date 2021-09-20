@@ -46,21 +46,3 @@ steps:
     projects: "**/*.csproj"
     arguments: "--configuration Release --output $(Build.ArtifactStagingDirectory)/artifacts"
 
-- task : AzureResourceGroupDeployment@2
-  inputs:
-    azureSubscription: 'AzureConnection'
-    resourceGroupName: 'tetgroup'
-    templateLocation: 'Linked artifact'
-    csmFile:  '**/infrastructure.json'
-
-- task: AzureWebApp@1
-  inputs:
-    azureSubscription: 'AzureConnection'
-    appName: 'backendkudos'
-    package: "$(Build.ArtifactStagingDirectory)/artifacts/*.zip" 
-    
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'NUnit'
-    testResultsFiles: '*.txt'
-    searchFolder: '$(Agent.TempDirectory)\TestResults'
