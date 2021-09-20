@@ -1,0 +1,66 @@
+# ASP.NET Core (.NET Framework)
+# Build and test ASP.NET Core projects targeting the full .NET Framework.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'Any CPU'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    solution: '$(solution)'
+    msbuildArgs: '/p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:DesktopBuildPackageLocation="$(build.artifactStagingDirectory)\WebApp.zip" /p:DeployIisAppPath="Default Web Site"'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\unit-tests\ValidationT\*Test*.cs
+      **\unit-tests\UserControllerT\*Test*.cs
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+    platform: '$(buildPlatform)'
+    configuration: '$(buildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: publish
+    publishWebProjects: true
+    projects: "**/*.csproj"
+    arguments: "--configuration Release --output $(Build.ArtifactStagingDirectory)/artifacts"
+
+- task : AzureResourceGroupDeployment@2
+  inputs:
+    azureSubscription: 'AzureConnection'
+    resourceGroupName: 'tetgroup'
+    templateLocation: 'Linked artifact'
+    csmFile:  '**/infrastructure.json'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'AzureConnection'
+    appName: 'backendkudos'
+    package: "$(Build.ArtifactStagingDirectory)/artifacts/*.zip" 
+    
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'NUnit'
+    testResultsFiles: '*.txt'
+    searchFolder: '$(Agent.TempDirectory)\TestResults'
