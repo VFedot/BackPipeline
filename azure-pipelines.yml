@@ -46,3 +46,10 @@ steps:
     projects: "**/*.csproj"
     arguments: "--configuration Release --output $(Build.ArtifactStagingDirectory)/artifacts"
 
+- task : AzureResourceGroupDeployment@2
+  inputs:
+    azureSubscription: 'BackPipeline'
+    resourceGroupName: 'tetgroup'
+    templateLocation: 'Linked artifact'
+    csmFile:  '**/infrastructure.json'
+
