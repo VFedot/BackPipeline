@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31515.178
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KudosShop", "back-end\KudosShop.csproj", "{DB9A8B43-5AE2-4E70-8D93-94F273A65A00}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "KudosShopUnitTest", "unit-tests\KudosShopUnitTest.csproj", "{5CE21DCC-B55A-4813-8156-9AB43D8CA036}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DB9A8B43-5AE2-4E70-8D93-94F273A65A00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB9A8B43-5AE2-4E70-8D93-94F273A65A00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB9A8B43-5AE2-4E70-8D93-94F273A65A00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB9A8B43-5AE2-4E70-8D93-94F273A65A00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5CE21DCC-B55A-4813-8156-9AB43D8CA036}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5CE21DCC-B55A-4813-8156-9AB43D8CA036}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5CE21DCC-B55A-4813-8156-9AB43D8CA036}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5CE21DCC-B55A-4813-8156-9AB43D8CA036}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E4B49370-2D9C-4D38-B948-4DE94EF57A23}
+	EndGlobalSection
+EndGlobal
